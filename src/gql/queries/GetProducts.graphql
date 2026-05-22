@@ -1,0 +1,22 @@
+query GetProducts($limit: Int!, $skip: Int, $where: ProductFilter) {
+  productCollection(limit: $limit, skip: $skip, where: $where) {
+    total
+    items {
+      sys {
+        id
+      }
+      name
+      slug
+      price
+      category
+      tags
+      featured
+      imagesCollection(limit: 1) {
+        items {
+          url
+          title
+        }
+      }
+    }
+  }
+}
