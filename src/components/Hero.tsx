@@ -15,7 +15,9 @@ export default async function Hero() {
   });
 
   const heroProduct = data?.productCollection?.items[0];
-  const descriptionJson = heroProduct?.description?.json as Document | undefined;
+  const descriptionJson = heroProduct?.description?.json as
+    | Document
+    | undefined;
   const images = heroProduct?.imagesCollection?.items ?? [];
 
   if (!heroProduct) return null;
@@ -89,7 +91,7 @@ export default async function Hero() {
             Shop now
           </Link>
           <Link
-            href="/?category=Featured"
+            href="/?featured=true"
             className="bg-transparent border border-[var(--color-border-secondary)] text-[var(--color-text-primary)] py-2 px-[18px] rounded-[var(--border-radius-md)] text-xs"
           >
             View all featured

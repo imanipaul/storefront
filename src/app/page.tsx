@@ -8,18 +8,27 @@ import { Suspense } from "react";
 export default async function HomePage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; skip?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    skip?: string;
+    featured?: string;
+  }>;
 }) {
   const limit = 50;
-  const { category, skip = "0" } = await searchParams;
+  const { category, featured = "false" } = await searchParams;
   const { data } = await apolloClient.query({
     query: GetProductsDocument,
     variables: {
       limit,
-      skip: skip ? parseInt(skip) : 0,
-      where: category ? { category: category } : undefined,
+      where: {
+        ...(category && { category: category }),
+        ...(featured === "true" && { featured: true }),
+      },
     },
   });
+
+  console.log("data", data);
+  console.log("featured", featured);
 
   return (
     <>
