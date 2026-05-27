@@ -15,7 +15,7 @@ export default function FilterPills() {
       params.set("category", filter);
     }
     params.delete("skip");
-    router.push(`/?${params.toString()}`);
+    router.push(`/?${params.toString()}`, { scroll: false });
   }
 
   return (
