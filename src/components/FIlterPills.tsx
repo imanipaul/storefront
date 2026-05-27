@@ -2,6 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
+const filters = ["All", "Tops", "Bottoms", "Outerwear", "Accessories", "Featured"];
+
 export default function FilterPills() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -19,13 +21,23 @@ export default function FilterPills() {
   }
 
   return (
-    <div className="flex justify-between">
-      <button onClick={() => handleFilter("All")}>All</button>
-      <button onClick={() => handleFilter("Tops")}>Tops</button>
-      <button onClick={() => handleFilter("Bottoms")}>Bottoms</button>
-      <button onClick={() => handleFilter("Outerwear")}>Outerwear</button>
-      <button onClick={() => handleFilter("Accessories")}>Accessories</button>
-      <button onClick={() => handleFilter("Featured")}>Featured</button>
+    <div className="flex items-center gap-1.5 px-5 py-3 border-b border-[var(--color-border-tertiary)]">
+      {filters.map((filter) => {
+        const isActive = active === filter;
+        return (
+          <button
+            key={filter}
+            onClick={() => handleFilter(filter)}
+            className={`px-3 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap border transition-colors ${
+              isActive
+                ? "bg-[var(--color-text-primary)] text-[var(--color-background-primary)] border-[var(--color-text-primary)]"
+                : "bg-transparent border-[var(--color-border-secondary)] text-[var(--color-text-secondary)]"
+            }`}
+          >
+            {filter}
+          </button>
+        );
+      })}
     </div>
   );
 }

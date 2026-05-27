@@ -1,7 +1,6 @@
 import ProductGrid from "@/components/ProductGrid";
 import { apolloClient } from "./lib/apollo-client";
 import { GetProductsDocument } from "@/gql/graphql";
-import Link from "next/link";
 import Hero from "@/components/Hero";
 import FilterPills from "@/components/FIlterPills";
 import { Suspense } from "react";
@@ -22,16 +21,14 @@ export default async function HomePage({
     },
   });
 
-  const total = data?.productCollection?.total ?? 0;
-
   return (
-    <div>
+    <>
       <Hero />
       <Suspense>
         <FilterPills />
       </Suspense>
       <ProductGrid products={data?.productCollection?.items ?? []} />
-    </div>
+    </>
   );
 }
 

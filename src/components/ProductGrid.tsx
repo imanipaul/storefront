@@ -8,40 +8,48 @@ type Product = NonNullable<
 
 export default function ProductGrid({ products }: { products: Product[] }) {
   return (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 sm:gap-x-5 sm:gap-y-8 md:grid-cols-4 lg:grid-cols-5">
+    <div
+      className="grid grid-cols-3 gap-[0.5px]"
+      style={{ background: "var(--color-border-tertiary)" }}
+    >
       {products.map((product) => {
         const image = product?.imagesCollection?.items[0];
         return (
-          <div
+          <Link
             key={product?.slug}
-            className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
+            href={`/products/${product?.slug}`}
+            className="bg-[var(--color-background-primary)] block"
           >
-            <Link
-              href={`/products/${product?.slug}`}
-              className="flex flex-1 flex-col"
-            >
-              <div className="relative aspect-[2/3] overflow-hidden bg-gray-100">
-                {image?.url && (
-                  <Image
-                    src={image.url}
-                    alt={image.title ?? product?.name ?? ""}
-                    width={200}
-                    height={300}
-                    className="h-full w-full object-cover transition-opacity group-hover:opacity-90"
-                  />
-                )}
-              </div>
-              <div className="flex flex-1 flex-col gap-1 p-3 sm:p-4">
-                <p className="text-sm font-medium text-gray-900">
-                  {product?.name}
-                </p>
-                <p className="text-xs text-gray-400">{product?.category}</p>
-                <p className="mt-auto pt-2 text-sm text-gray-900">
-                  ${product?.price?.toFixed(2)}
-                </p>
-              </div>
-            </Link>
-          </div>
+            {/* Card image */}
+            <div className="w-full aspect-[3/4] bg-[var(--color-background-secondary)] flex items-center justify-center relative overflow-hidden">
+              {image?.url && (
+                <Image
+                  src={image.url}
+                  alt={image.title ?? product?.name ?? ""}
+                  fill
+                  className="object-cover"
+                />
+              )}
+              {product?.featured && (
+                <span className="absolute top-2 left-2 bg-[var(--color-background-primary)] border border-[var(--color-border-tertiary)] text-[10px] py-0.5 px-1.5 rounded-full text-[var(--color-text-secondary)]">
+                  Featured
+                </span>
+              )}
+            </div>
+
+            {/* Card info */}
+            <div className="px-3 pt-2.5 pb-3.5">
+              <p className="text-[13px] font-medium text-[var(--color-text-primary)] mb-0.5">
+                {product?.name}
+              </p>
+              <p className="text-[11px] text-[var(--color-text-tertiary)] mb-1.5">
+                {product?.category}
+              </p>
+              <p className="text-[13px] text-[var(--color-text-primary)]">
+                ${product?.price?.toFixed(2)}
+              </p>
+            </div>
+          </Link>
         );
       })}
     </div>
