@@ -1,0 +1,8 @@
+query GetCollectionSlugs {
+  collectionCollection(limit: 100) {
+    items {
+      slug
+      title
+    }
+  }
+}

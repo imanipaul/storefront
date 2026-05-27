@@ -1,0 +1,22 @@
+query GetProduct($slug: String!) {
+  productCollection(limit: 1, where: { slug: $slug }) {
+    items {
+      name
+      price
+      description {
+        json
+      }
+      variants
+      imagesCollection(limit: 5) {
+        items {
+          url
+          title
+          width
+          height
+        }
+      }
+    }
+  }
+}
+
+# NOTE: Since this is just a POC we will be querying the collection and using the slug as a filter to find the one item of type. However in a production environment with thousands of entries, this would be inefficient. Instead we would query the type and use the system id to get the specified product

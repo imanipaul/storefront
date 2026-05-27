@@ -2,13 +2,16 @@ import ProductGrid from "@/components/ProductGrid";
 import { apolloClient } from "./lib/apollo-client";
 import { GetProductsDocument } from "@/gql/graphql";
 import Link from "next/link";
+import Hero from "@/components/Hero";
+import FilterPills from "@/components/FIlterPills";
+import { Suspense } from "react";
 
 export default async function HomePage({
   searchParams,
 }: {
   searchParams: Promise<{ category?: string; skip?: string }>;
 }) {
-  const limit = 5;
+  const limit = 50;
   const { category, skip = "0" } = await searchParams;
   const { data } = await apolloClient.query({
     query: GetProductsDocument,
@@ -23,17 +26,11 @@ export default async function HomePage({
 
   return (
     <div>
-      <ProductGrid
-        products={data?.productCollection?.items ?? []}
-        total={data?.productCollection?.total ?? 0}
-      />
-      {total > parseInt(skip) + limit ? (
-        <Link href={`/?skip=${skip ? parseInt(skip) + 5 : 5}`}>Load Next</Link>
-      ) : (
-        <Link href={`/?skip=${skip ? parseInt(skip) - 5 : 0}`}>
-          Load Previous
-        </Link>
-      )}
+      <Hero />
+      <Suspense>
+        <FilterPills />
+      </Suspense>
+      <ProductGrid products={data?.productCollection?.items ?? []} />
     </div>
   );
 }

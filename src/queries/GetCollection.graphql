@@ -1,0 +1,31 @@
+query GetCollection($slug: String!) {
+  collectionCollection(limit: 1, where: { slug: $slug }) {
+    items {
+      title
+      description {
+        json
+      }
+      heroImage {
+        url
+        title
+        width
+        height
+      }
+      productsCollection(limit: 20) {
+        items {
+          ... on Product {
+            name
+            slug
+            price
+            imagesCollection(limit: 1) {
+              items {
+                url
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

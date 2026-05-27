@@ -1,0 +1,7 @@
+query GetProductSlugs {
+  productCollection(limit: 100) {
+    items {
+      slug
+    }
+  }
+}

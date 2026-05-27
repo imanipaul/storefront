@@ -7,10 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "codegen": "graphql-codegen --config graphql.config.ts"
+    "codegen": "graphql-codegen --config graphql.config.ts",
+    "codegen:watch": "graphql-codegen --config graphql.config.ts --watch"
   },
   "dependencies": {
     "@apollo/client": "^4.2.0",
+    "@contentful/rich-text-react-renderer": "^16.2.1",
+    "@contentful/rich-text-types": "^17.2.7",
     "@next/env": "^16.2.6",
     "graphql": "^16.14.0",
     "next": "16.2.6",
@@ -20,6 +23,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^7.0.0",
     "@graphql-codegen/client-preset": "^6.0.0",
+    "@parcel/watcher": "^2.5.6",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -6,6 +6,9 @@ query GetProducts($limit: Int!, $skip: Int, $where: ProductFilter) {
         id
       }
       name
+      description {
+        json
+      }
       slug
       price
       category
