@@ -2,7 +2,13 @@
 import { useState } from "react";
 import AddToCartButton from "./AddToCartButton";
 
-export default function ItemSelector({ product }: any) {
+export default function ItemSelector({
+  product,
+  slug,
+}: {
+  product: any;
+  slug: string;
+}) {
   const [selectedVariant, setSelectedVariant] = useState(1);
 
   console.log("product", product);
@@ -33,7 +39,7 @@ export default function ItemSelector({ product }: any) {
           product.variants[selectedVariant].size ||
           product.variants[selectedVariant].color
         }
-        productSlug={product.slug}
+        productSlug={slug}
         name={product.name}
         variantLabel={
           product.variants[selectedVariant].size ||

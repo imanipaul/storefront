@@ -18,10 +18,10 @@ export default function ProductGrid({ products }: { products: Product[] }) {
           <Link
             key={product?.slug}
             href={`/products/${product?.slug}`}
-            className="bg-[var(--color-background-primary)] block"
+            className="bg-(--color-background-primary) block"
           >
             {/* Card image */}
-            <div className="w-full aspect-[3/4] bg-[var(--color-background-secondary)] flex items-center justify-center relative overflow-hidden">
+            <div className="w-full aspect-3/4 bg-(--color-background-secondary) flex items-center justify-center relative overflow-hidden">
               {image?.url && (
                 <Image
                   src={image.url}
@@ -31,7 +31,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
                 />
               )}
               {product?.featured && (
-                <span className="absolute top-2 left-2 bg-[var(--color-background-primary)] border border-[var(--color-border-tertiary)] text-[10px] py-0.5 px-1.5 rounded-full text-[var(--color-text-secondary)]">
+                <span className="absolute top-2 left-2 bg-(--color-background-primary) border border-(--color-border-tertiary) text-[10px] py-0.5 px-1.5 rounded-full text-(--color-text-secondary)">
                   Featured
                 </span>
               )}
@@ -39,13 +39,13 @@ export default function ProductGrid({ products }: { products: Product[] }) {
 
             {/* Card info */}
             <div className="px-3 pt-2.5 pb-3.5">
-              <p className="text-[13px] font-medium text-[var(--color-text-primary)] mb-0.5">
+              <p className="text-[13px] font-medium text-(--color-text-primary) mb-0.5">
                 {product?.name}
               </p>
-              <p className="text-[11px] text-[var(--color-text-tertiary)] mb-1.5">
+              <p className="text-[11px] text-(--color-text-tertiary) mb-1.5">
                 {product?.category}
               </p>
-              <p className="text-[13px] text-[var(--color-text-primary)]">
+              <p className="text-[13px] text-(--color-text-primary)">
                 ${product?.price?.toFixed(2)}
               </p>
             </div>

@@ -1,5 +1,8 @@
 "use client";
+import CartItem from "@/components/CartItem";
+import OrderSummary from "@/components/OrderSummary";
 import { selectTotalItems, selectTotalPrice, useCartStore } from "@/store/cart";
+import Link from "next/link";
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items);
@@ -10,19 +13,12 @@ export default function CartPage() {
     return <div>Your cart is Empty</div>;
   }
 
+  console.log("items", items);
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px]">
-      <div className="p-6">
-        <h1>Your cart ({totalItems})</h1>
-        {items.map((item) => (
-          <p key={item.name}>{item.name}</p>
-          // <CartItem key={item.variantId} item={item} />
-        ))}
-      </div>
-      <div className="p-6 bg-gray-50">
-        <p>Total ${totalPrice}</p>
-        {/* <OrderSummary total={totalPrice} /> */}
-      </div>
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
+      <CartItem totalItems={totalItems} items={items} />
+      <OrderSummary totalPrice={totalPrice} />
     </div>
   );
 }

@@ -120,15 +120,10 @@ export default async function ProductPage({
               Size
             </p>
             <div className="flex gap-1.5 flex-wrap">
-              <ItemSelector product={product} />
+              <ItemSelector product={product} slug={slug} />
             </div>
           </div>
         )}
-
-        {/* Add to cart */}
-        {/* <button className="w-full bg-[var(--color-text-primary)] text-[var(--color-background-primary)] border-0 py-3 rounded-[var(--border-radius-md)] text-[13px] font-medium cursor-pointer">
-          Add to cart
-        </button> */}
 
         {/* Save to wishlist */}
         <button className="w-full bg-transparent border border-(--color-border-secondary) text-(--color-text-primary) py-[11px] rounded-(--border-radius-md) text-xs cursor-pointer flex items-center justify-center gap-1.5">
