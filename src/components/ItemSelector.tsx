@@ -2,16 +2,32 @@
 import { useState } from "react";
 import AddToCartButton from "./AddToCartButton";
 
+export type ProductVariant = {
+  size?: string;
+  color?: string;
+  available?: boolean;
+};
+
+type ProductWithVariants = {
+  name: string | null;
+  price: number | null;
+  variants: ProductVariant[];
+  imagesCollection: {
+    items: Array<{ url: string | null } | null>;
+  } | null;
+};
+
 export default function ItemSelector({
   product,
   slug,
 }: {
-  product: any;
+  product: ProductWithVariants;
   slug: string;
 }) {
-  const [selectedVariant, setSelectedVariant] = useState(1);
-
-  console.log("product", product);
+  const [selectedVariant, setSelectedVariant] = useState(0);
+  const variant = product.variants[selectedVariant];
+  const variantLabel = variant?.size ?? variant?.color ?? "";
+  const imageUrl = product.imagesCollection?.items[0]?.url ?? "";
 
   return (
     <div className="w-full">
@@ -35,19 +51,13 @@ export default function ItemSelector({
       </div>
 
       <AddToCartButton
-        variantId={
-          product.variants[selectedVariant].size ||
-          product.variants[selectedVariant].color
-        }
+        variantId={variantLabel}
         productSlug={slug}
-        name={product.name}
-        variantLabel={
-          product.variants[selectedVariant].size ||
-          product.variants[selectedVariant].color
-        }
-        price={product.price}
-        imageUrl={product.imagesCollection.items[0].url}
-        available={product.variants[selectedVariant].available}
+        name={product.name ?? ""}
+        variantLabel={variantLabel}
+        price={product.price ?? 0}
+        imageUrl={imageUrl}
+        available={variant?.available ?? false}
       />
     </div>
   );

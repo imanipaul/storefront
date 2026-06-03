@@ -1,5 +1,5 @@
 import { apolloClient } from "@/app/lib/apollo-client";
-import ItemSelector from "@/components/ItemSelector";
+import ItemSelector, { type ProductVariant } from "@/components/ItemSelector";
 import { GetProductDocument, GetProductSlugsDocument } from "@/gql/graphql";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import type { Document } from "@contentful/rich-text-types";
@@ -37,7 +37,9 @@ export default async function ProductPage({
     );
 
   const images = product?.imagesCollection?.items ?? [];
-  const variants = product?.variants ?? [];
+  const variants: ProductVariant[] = Array.isArray(product.variants)
+    ? (product.variants as ProductVariant[])
+    : [];
 
   return (
     <div className="grid grid-cols-2">
@@ -52,12 +54,12 @@ export default async function ProductPage({
           />
         )}
 
-        {/* Featured badge */}
-        {product.featured && (
+        {/* Featured badge
+        {product?.featured && (
           <div className="absolute top-3 left-3 flex items-center gap-1 bg-(--color-background-primary) border border-(--color-border-tertiary) text-[10px] py-1 px-2 rounded-full text-(--color-text-secondary)">
             ★ Featured
           </div>
-        )}
+        )} */}
 
         {/* Thumbnail strip */}
         {images.length > 1 && (
@@ -93,7 +95,7 @@ export default async function ProductPage({
           <Link href="/" className="hover:underline">
             All products
           </Link>
-          {product.category && <> › {product.category}</>} › {product.name}
+          {/* {product.category && <> › {product.category}</>} › {product.name} */}
         </p>
 
         {/* Title + description */}
@@ -120,7 +122,10 @@ export default async function ProductPage({
               Size
             </p>
             <div className="flex gap-1.5 flex-wrap">
-              <ItemSelector product={product} slug={slug} />
+              <ItemSelector
+                product={{ ...product, variants }}
+                slug={slug}
+              />
             </div>
           </div>
         )}
