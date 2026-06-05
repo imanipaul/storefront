@@ -37,7 +37,8 @@ export default function SearchModal() {
         </svg>{" "}
       </button>
       <dialog ref={dialogRef} id="my_modal_2" className="modal">
-        <div className="modal-box bg-white h-3/4 w-[1200px] max-w-none">
+        <div className="modal-box bg-white h-fit w-lg max-w-none">
+          <h3 className="text-lg">Search Our Products</h3>
           <label className="input w-full">
             <svg
               className="h-[1em] opacity-50"
@@ -59,7 +60,7 @@ export default function SearchModal() {
               <input
                 type="search"
                 required
-                placeholder="Search products..."
+                placeholder="Ex: 'shorts'"
                 value={userInput}
                 onChange={handleChange}
               />
