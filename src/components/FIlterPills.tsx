@@ -14,9 +14,6 @@ const filters = [
 export default function FilterPills() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams.toString());
-  const active = searchParams.get("category") ?? "All";
-  // const testActive = [...searchParams.getAll()]
 
   function handleFilter(filter: string) {
     const params = new URLSearchParams(searchParams.toString());
@@ -39,9 +36,8 @@ export default function FilterPills() {
   }
 
   return (
-    <div className="flex items-center gap-1.5 px-5 py-3 border-b border-[var(--color-border-tertiary)]">
+    <div className="flex items-center gap-1.5 px-5 py-3 border-b border-(--color-border-tertiary)">
       {filters.map((filter) => {
-        // const isActive = active === filter;
         const isActive =
           filter === "Featured"
             ? searchParams.has("featured")
@@ -52,8 +48,8 @@ export default function FilterPills() {
             onClick={() => handleFilter(filter)}
             className={`px-3 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap border transition-colors ${
               isActive
-                ? "bg-[var(--color-text-primary)] text-[var(--color-background-primary)] border-[var(--color-text-primary)]"
-                : "bg-transparent border-[var(--color-border-secondary)] text-[var(--color-text-secondary)]"
+                ? "bg-(--color-text-primary) text-(--color-background-primary) border-(--color-text-primary)"
+                : "bg-transparent border-(--color-border-secondary) text-(--color-text-secondary)"
             }`}
           >
             {filter}

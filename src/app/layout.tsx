@@ -5,6 +5,7 @@ import "./globals.css";
 import { apolloClient } from "./lib/apollo-client";
 import { GetCollectionSlugsDocument } from "@/gql/graphql";
 import CartBadge from "@/components/CartBadge";
+import SearchModal from "@/components/SearchModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -67,23 +68,7 @@ export default async function RootLayout({
 
           {/* Actions */}
           <div className="flex items-center gap-3 shrink-0">
-            <button
-              className="text-(--color-text-secondary) p-1 flex items-center bg-transparent border-0 cursor-pointer"
-              aria-label="Search"
-            >
-              <svg
-                width="17"
-                height="17"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M20 20L15.8033 15.8033M18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C14.6421 18 18 14.6421 18 10.5Z" />
-              </svg>
-            </button>
+            <SearchModal />
             <CartBadge />
           </div>
         </header>
