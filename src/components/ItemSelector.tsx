@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import AddToCartButton from "./AddToCartButton";
+import { AddToCartButton } from "./CartButtons";
 
 export type ProductVariant = {
   size?: string;

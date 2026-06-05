@@ -2,7 +2,6 @@
 import CartItem from "@/components/CartItem";
 import OrderSummary from "@/components/OrderSummary";
 import { selectTotalItems, selectTotalPrice, useCartStore } from "@/store/cart";
-import Link from "next/link";
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items);

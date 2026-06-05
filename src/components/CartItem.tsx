@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { RemoveFromCartButton, UpdateQuantityCartButton } from "./CartButtons";
 
 export default function CartItem({
   totalItems,
@@ -24,11 +25,21 @@ export default function CartItem({
             <p className="text-lg">{item.name}</p>
             <p className="text-base mb-10">{item.variantLabel}</p>
             <div>
-              <button className="border w-10 rounded-md mr-5">-</button>
+              <UpdateQuantityCartButton
+                sign="-"
+                variantId={item.variantLabel}
+                quantity={item.quantity}
+              />
+              {/* <button className="border w-10 rounded-md mr-5">-</button> */}
               {item.quantity}
-              <button className="border w-10 rounded-md ml-5">+</button>
+              <UpdateQuantityCartButton
+                sign="+"
+                variantId={item.variantLabel}
+                quantity={item.quantity}
+              />
+              {/* <button className="border w-10 rounded-md ml-5">+</button> */}
             </div>
-            <button className="border w-full h-10 rounded-md">Remove</button>
+            <RemoveFromCartButton variantId={item.variantLabel} />
           </div>
           <div id="price-container" className="ml-50 text-lg">
             ${item.price}
