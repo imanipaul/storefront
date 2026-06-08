@@ -6,8 +6,12 @@ export default function CartBadge() {
   const totalItems = useCartStore(selectTotalItems);
 
   return (
-    <div className="indicator">
-      <span className="indicator-item badge badge-secondary">{totalItems}</span>
+    <div className={`indicator`}>
+      <span
+        className={`indicator-item badge badge-secondary  ${totalItems === 0 && "hidden"}`}
+      >
+        {totalItems}
+      </span>
       <Link href="/cart" className="btn">
         <svg
           width="17"

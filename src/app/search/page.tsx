@@ -1,7 +1,7 @@
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: any;
+  searchParams: { q: string };
 }) {
   const resolvedParams = await searchParams;
 
