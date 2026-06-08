@@ -1,23 +1,14 @@
-"use client";
-import CartItem from "@/components/CartItem";
-import OrderSummary from "@/components/OrderSummary";
-import { selectTotalItems, selectTotalPrice, useCartStore } from "@/store/cart";
+import { apolloClient } from "@/app/lib/apollo-client";
+import { GetProductsDocument } from "@/gql/graphql";
+import CartView from "./CartView";
 
-export default function CartPage() {
-  const items = useCartStore((state) => state.items);
-  const totalItems = useCartStore(selectTotalItems);
-  const totalPrice = useCartStore(selectTotalPrice);
+export default async function CartPage() {
+  const { data } = await apolloClient.query({
+    query: GetProductsDocument,
+    variables: { limit: 3, where: { featured: true } },
+  });
 
-  if (totalItems === 0) {
-    return <div>Your cart is Empty</div>;
-  }
+  const suggestedProducts = data?.productCollection?.items ?? [];
 
-  console.log("items", items);
-
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_640px]">
-      <CartItem totalItems={totalItems} items={items} />
-      <OrderSummary totalPrice={totalPrice} />
-    </div>
-  );
+  return <CartView suggestedProducts={suggestedProducts} />;
 }

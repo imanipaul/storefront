@@ -1,51 +1,55 @@
 import Image from "next/image";
 import { RemoveFromCartButton, UpdateQuantityCartButton } from "./CartButtons";
+import { CartItem as CartItemType } from "@/store/cart";
 
 export default function CartItem({
   totalItems,
   items,
 }: {
   totalItems: number;
-  items: any[];
+  items: CartItemType[];
 }) {
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold">Your cart ({totalItems})</h1>
-      {items.map((item, i) => (
-        <div className="flex" key={i}>
-          <div id="image-container">
-            <Image
-              src={item.imageUrl}
-              alt={item.name}
-              width={200}
-              height={200}
-            />
-          </div>
-          <div id="data-container" className="ml-10 flex flex-col">
-            <p className="text-lg">{item.name}</p>
-            <p className="text-base mb-10">{item.variantLabel}</p>
-            <div>
-              <UpdateQuantityCartButton
-                sign="-"
-                variantId={item.variantLabel}
-                quantity={item.quantity}
+    <div className="p-8">
+      <h1 className="text-2xl font-bold mb-6">Your cart ({totalItems})</h1>
+      <div className="divide-y divide-gray-200">
+        {items.map((item, i) => (
+          <div className="flex gap-5 py-6" key={i}>
+            <div className="w-24 h-24 flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
+              <Image
+                src={item.imageUrl}
+                alt={item.name}
+                width={96}
+                height={96}
+                className="w-full h-full object-cover"
               />
-              {/* <button className="border w-10 rounded-md mr-5">-</button> */}
-              {item.quantity}
-              <UpdateQuantityCartButton
-                sign="+"
-                variantId={item.variantLabel}
-                quantity={item.quantity}
-              />
-              {/* <button className="border w-10 rounded-md ml-5">+</button> */}
             </div>
-            <RemoveFromCartButton variantId={item.variantLabel} />
+            <div className="flex flex-col flex-1 min-w-0">
+              <p className="font-medium text-base">{item.name}</p>
+              <p className="text-sm text-gray-500 mb-4">{item.variantLabel}</p>
+              <div className="flex items-center gap-3">
+                <UpdateQuantityCartButton
+                  sign="-"
+                  variantId={item.variantId}
+                  quantity={item.quantity}
+                />
+                <span className="w-6 text-center text-sm">{item.quantity}</span>
+                <UpdateQuantityCartButton
+                  sign="+"
+                  variantId={item.variantId}
+                  quantity={item.quantity}
+                />
+              </div>
+              <div className="mt-3">
+                <RemoveFromCartButton variantId={item.variantId} />
+              </div>
+            </div>
+            <div className="text-base font-medium flex-shrink-0">
+              ${item.price.toFixed(2)}
+            </div>
           </div>
-          <div id="price-container" className="ml-50 text-lg">
-            ${item.price}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

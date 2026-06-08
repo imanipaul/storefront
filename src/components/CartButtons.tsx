@@ -53,7 +53,10 @@ export function RemoveFromCartButton({ variantId }: { variantId: string }) {
   };
 
   return (
-    <button className="border w-full h-10 rounded-md" onClick={handleClick}>
+    <button
+      className="border border-gray-300 px-4 h-8 rounded-md text-sm font-medium hover:bg-gray-50"
+      onClick={handleClick}
+    >
       Remove
     </button>
   );
@@ -78,7 +81,7 @@ export function UpdateQuantityCartButton({
 
   return (
     <button
-      className={`border w-10 rounded-md ${sign === "-" ? "mr-5" : "ml-5"}`}
+      className="border border-gray-300 w-8 h-8 rounded-md text-sm font-medium hover:bg-gray-50"
       onClick={handleClick}
     >
       {sign}
