@@ -3,6 +3,7 @@ query GetProduct($slug: String!) {
     items {
       name
       price
+      category
       description {
         json
       }

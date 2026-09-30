@@ -20,7 +20,7 @@ export default function MobileNav({ links }: { links: NavLink[] }) {
     <div className="md:hidden">
       <button
         type="button"
-        className="btn btn-ghost btn-square"
+        className="button button-tertiary button-icon text-(--color-text-primary)"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
         aria-controls="mobile-nav"

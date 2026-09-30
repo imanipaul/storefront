@@ -24,7 +24,7 @@ export default function SearchModal() {
     <>
       <button
         type="button"
-        className="btn"
+        className="button button-tertiary button-icon text-(--color-text-primary)"
         aria-label="Search products"
         onClick={() => dialogRef.current?.showModal()}
       >
@@ -43,7 +43,7 @@ export default function SearchModal() {
         </svg>
       </button>
       <dialog ref={dialogRef} id="my_modal_2" className="modal">
-        <div className="modal-box bg-white h-fit w-11/12 max-w-lg">
+        <div className="modal-box h-fit w-11/12 max-w-lg">
           <h3 className="text-lg">Search Our Products</h3>
           <label className="input w-full">
             <svg

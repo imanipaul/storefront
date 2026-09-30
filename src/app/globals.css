@@ -1,6 +1,42 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default;
+  themes: false;
+}
+
+/* DaisyUI components (badge, modal, input) read their colors from this theme,
+   which points every DaisyUI variable at our own design tokens below. */
+@plugin "daisyui/theme" {
+  name: "forme";
+  default: true;
+  color-scheme: light;
+  --color-base-100: var(--color-background-primary);
+  --color-base-200: var(--color-background-secondary);
+  --color-base-300: var(--color-border-tertiary);
+  --color-base-content: var(--color-text-primary);
+  --color-primary: var(--color-text-primary);
+  --color-primary-content: var(--color-background-primary);
+  --color-secondary: var(--color-text-primary);
+  --color-secondary-content: var(--color-background-primary);
+  --color-accent: var(--color-text-primary);
+  --color-accent-content: var(--color-background-primary);
+  --color-neutral: var(--color-text-primary);
+  --color-neutral-content: var(--color-background-primary);
+  --color-info: var(--color-text-info);
+  --color-info-content: var(--color-background-primary);
+  --color-success: var(--color-text-success);
+  --color-success-content: var(--color-background-primary);
+  --color-warning: var(--color-text-warning);
+  --color-warning-content: var(--color-background-primary);
+  --color-error: var(--color-text-danger);
+  --color-error-content: var(--color-background-primary);
+  --radius-selector: 9999px;
+  --radius-field: var(--border-radius-md);
+  --radius-box: var(--border-radius-lg);
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
 }
 
 :root {
@@ -11,6 +47,9 @@
   --color-text-secondary: #737373;
   --color-text-tertiary: #a3a3a3;
   --color-text-danger: #dc2626;
+  --color-text-success: #16a34a;
+  --color-text-warning: #d97706;
+  --color-text-info: #2563eb;
   --color-background-primary: #ffffff;
   --color-background-secondary: #f5f5f5;
   --color-border-primary: #171717;
@@ -31,4 +70,78 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: 13px;
+}
+
+/* Button levels
+   primary   – the one main action in a view (Add to cart, Checkout)
+   secondary – supporting actions (Continue shopping, Apply, Save to wishlist)
+   tertiary  – low-emphasis and icon actions (Remove, header icons) */
+@layer components {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.25;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      background-color 150ms,
+      border-color 150ms,
+      color 150ms,
+      opacity 150ms;
+  }
+
+  .button:focus-visible {
+    outline: 2px solid var(--color-border-primary);
+    outline-offset: 2px;
+  }
+
+  .button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .button-primary {
+    background-color: var(--color-text-primary);
+    color: var(--color-background-primary);
+  }
+  .button-primary:not(:disabled):hover {
+    opacity: 0.85;
+  }
+
+  .button-secondary {
+    background-color: transparent;
+    border-color: var(--color-border-secondary);
+    color: var(--color-text-primary);
+  }
+  .button-secondary:not(:disabled):hover {
+    border-color: var(--color-border-primary);
+  }
+
+  .button-tertiary {
+    background-color: transparent;
+    color: var(--color-text-secondary);
+  }
+  .button-tertiary:not(:disabled):hover {
+    background-color: var(--color-background-secondary);
+    color: var(--color-text-primary);
+  }
+
+  /* Sizes */
+  .button-sm {
+    padding: 0.5rem 1rem;
+    font-size: 12px;
+  }
+
+  .button-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+  }
 }

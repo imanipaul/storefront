@@ -1,6 +1,7 @@
 import { GetProductsQuery } from "@/gql/graphql";
 import Image from "next/image";
 import Link from "next/link";
+import { formatPrice } from "@/app/lib/format";
 
 type Product = NonNullable<
   GetProductsQuery["productCollection"]
@@ -46,7 +47,7 @@ export default function ProductGrid({ products }: { products: Product[] }) {
                 {product?.category}
               </p>
               <p className="text-[13px] text-(--color-text-primary)">
-                ${product?.price?.toFixed(2)}
+                {formatPrice(product?.price)}
               </p>
             </div>
           </Link>

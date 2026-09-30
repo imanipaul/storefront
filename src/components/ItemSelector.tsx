@@ -64,7 +64,7 @@ export default function ItemSelector({
       </div>
 
       <AddToCartButton
-        variantId={variantLabel}
+        variantId={`${slug}-${variantLabel}`}
         productSlug={slug}
         name={product.name ?? ""}
         variantLabel={variantLabel}

@@ -1,5 +1,9 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import { useCartStore } from "@/store/cart";
+import { useCartPreviewStore } from "@/store/cartPreview";
+
+const ADDED_FEEDBACK_MS = 2000;
 
 interface Props {
   variantId: string;
@@ -22,6 +26,11 @@ export function AddToCartButton({
   disabledLabel,
 }: Props) {
   const addItem = useCartStore((state) => state.addItem);
+  const showPreview = useCartPreviewStore((state) => state.show);
+  const [justAdded, setJustAdded] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => () => clearTimeout(timer.current), []);
 
   const handleClick = () => {
     addItem({
@@ -33,15 +42,21 @@ export function AddToCartButton({
       imageUrl,
       quantity: 1,
     });
+    showPreview(variantId);
+
+    setJustAdded(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setJustAdded(false), ADDED_FEEDBACK_MS);
   };
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       disabled={!!disabledLabel}
-      className="w-full bg-(--color-text-primary) text-(--color-background-primary) border-0 py-3 rounded-(--border-radius-md) text-[13px] font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+      className="button button-primary w-full"
     >
-      {disabledLabel ?? "Add To Cart"}
+      {disabledLabel ?? (justAdded ? "Added ✓" : "Add to cart")}
     </button>
   );
 }
@@ -55,7 +70,8 @@ export function RemoveFromCartButton({ variantId }: { variantId: string }) {
 
   return (
     <button
-      className="border border-gray-300 px-4 h-8 rounded-md text-sm font-medium hover:bg-gray-50"
+      type="button"
+      className="button button-tertiary button-sm -ml-4"
       onClick={handleClick}
     >
       Remove
@@ -82,7 +98,9 @@ export function UpdateQuantityCartButton({
 
   return (
     <button
-      className="border border-gray-300 w-8 h-8 rounded-md text-sm font-medium hover:bg-gray-50"
+      type="button"
+      aria-label={sign === "-" ? "Decrease quantity" : "Increase quantity"}
+      className="button button-secondary button-icon size-8"
       onClick={handleClick}
     >
       {sign}

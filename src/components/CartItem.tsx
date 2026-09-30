@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { RemoveFromCartButton, UpdateQuantityCartButton } from "./CartButtons";
 import { CartItem as CartItemType } from "@/store/cart";
+import { formatPrice } from "@/app/lib/format";
 
 export default function CartItem({
   totalItems,
@@ -12,10 +13,10 @@ export default function CartItem({
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Your cart ({totalItems})</h1>
-      <div className="divide-y divide-gray-200">
-        {items.map((item, i) => (
-          <div className="flex gap-5 py-6" key={i}>
-            <div className="w-24 h-24 flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
+      <div className="divide-y divide-(--color-border-tertiary)">
+        {items.map((item) => (
+          <div className="flex gap-5 py-6" key={item.variantId}>
+            <div className="w-24 h-24 flex-shrink-0 bg-(--color-background-secondary) rounded-(--border-radius-md) overflow-hidden">
               <Image
                 src={item.imageUrl}
                 alt={item.name}
@@ -26,7 +27,7 @@ export default function CartItem({
             </div>
             <div className="flex flex-col flex-1 min-w-0">
               <p className="font-medium text-base">{item.name}</p>
-              <p className="text-sm text-gray-500 mb-4">{item.variantLabel}</p>
+              <p className="text-sm text-(--color-text-secondary) mb-4">{item.variantLabel}</p>
               <div className="flex items-center gap-3">
                 <UpdateQuantityCartButton
                   sign="-"
@@ -45,7 +46,7 @@ export default function CartItem({
               </div>
             </div>
             <div className="text-base font-medium flex-shrink-0">
-              ${item.price.toFixed(2)}
+              {formatPrice(item.price)}
             </div>
           </div>
         ))}

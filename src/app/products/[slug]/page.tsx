@@ -5,6 +5,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import type { Document } from "@contentful/rich-text-types";
 import Image from "next/image";
 import Link from "next/link";
+import { formatPrice } from "@/app/lib/format";
 
 export async function generateStaticParams() {
   const { data } = await apolloClient.query({
@@ -91,12 +92,32 @@ export default async function ProductPage({
       {/* Info column */}
       <div className="px-5 py-6 flex flex-col gap-3.5 overflow-auto">
         {/* Breadcrumb */}
-        <p className="text-[11px] text-(--color-text-tertiary)">
-          <Link href="/" className="hover:underline">
-            All products
-          </Link>
-          {/* {product.category && <> › {product.category}</>} › {product.name} */}
-        </p>
+        <nav aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-1 text-[11px] text-(--color-text-tertiary)">
+            <li>
+              <Link href="/" className="hover:underline">
+                All products
+              </Link>
+            </li>
+            {product.category && (
+              <li className="flex items-center gap-1">
+                <span aria-hidden="true">›</span>
+                <Link
+                  href={`/?category=${encodeURIComponent(product.category)}`}
+                  className="hover:underline"
+                >
+                  {product.category}
+                </Link>
+              </li>
+            )}
+            <li className="flex items-center gap-1">
+              <span aria-hidden="true">›</span>
+              <span aria-current="page" className="text-(--color-text-secondary)">
+                {product.name}
+              </span>
+            </li>
+          </ol>
+        </nav>
 
         {/* Title + description */}
         <div>
@@ -112,7 +133,7 @@ export default async function ProductPage({
 
         {/* Price */}
         <p className="text-[17px] font-medium text-(--color-text-primary)">
-          ${product.price}
+          {formatPrice(product.price)}
         </p>
 
         {/* Variants */}
@@ -131,7 +152,7 @@ export default async function ProductPage({
         )}
 
         {/* Save to wishlist */}
-        <button className="w-full bg-transparent border border-(--color-border-secondary) text-(--color-text-primary) py-[11px] rounded-(--border-radius-md) text-xs cursor-pointer flex items-center justify-center gap-1.5">
+        <button type="button" className="button button-secondary w-full">
           ♡ Save to wishlist
         </button>
 

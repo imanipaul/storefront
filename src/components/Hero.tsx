@@ -4,6 +4,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { Document } from "@contentful/rich-text-types";
 import Image from "next/image";
 import Link from "next/link";
+import { formatPrice } from "@/app/lib/format";
 
 export default async function Hero() {
   const { data } = await apolloClient.query({
@@ -53,7 +54,7 @@ export default async function Hero() {
           </div>
         )}
         <p className="text-base font-medium text-(--color-text-primary)">
-          ${heroProduct.price}
+          {formatPrice(heroProduct.price)}
         </p>
 
         {/* Image thumbnails */}
@@ -86,13 +87,13 @@ export default async function Hero() {
         <div className="flex gap-2">
           <Link
             href={`/products/${heroProduct.slug}`}
-            className="bg-(--color-text-primary) text-(--color-background-primary) py-2 px-[18px] rounded-(--border-radius-md) text-xs font-medium"
+            className="button button-primary button-sm"
           >
             Shop now
           </Link>
           <Link
             href="/?featured=true"
-            className="bg-transparent border border-(--color-border-secondary) text-(--color-text-primary) py-2 px-[18px] rounded-(--border-radius-md) text-xs"
+            className="button button-secondary button-sm"
           >
             View all featured
           </Link>
