@@ -5,15 +5,22 @@ import Link from "next/link";
 export default function CartBadge() {
   const totalItems = useCartStore(selectTotalItems);
 
+  const label =
+    totalItems === 0
+      ? "Cart"
+      : `Cart, ${totalItems} ${totalItems === 1 ? "item" : "items"}`;
+
   return (
     <div className={`indicator`}>
       <span
+        aria-hidden="true"
         className={`indicator-item badge badge-secondary  ${totalItems === 0 && "hidden"}`}
       >
         {totalItems}
       </span>
-      <Link href="/cart" className="btn">
+      <Link href="/cart" className="btn" aria-label={label}>
         <svg
+          aria-hidden="true"
           width="17"
           height="17"
           viewBox="0 0 24 24"

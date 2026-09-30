@@ -36,7 +36,7 @@ export default function FilterPills() {
   }
 
   return (
-    <div className="flex items-center gap-1.5 px-5 py-3 border-b border-(--color-border-tertiary)">
+    <div className="flex items-center gap-1.5 px-5 py-3 overflow-x-auto border-b border-(--color-border-tertiary)">
       {filters.map((filter) => {
         const isActive =
           filter === "Featured"

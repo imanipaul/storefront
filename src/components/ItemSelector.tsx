@@ -24,10 +24,21 @@ export default function ItemSelector({
   product: ProductWithVariants;
   slug: string;
 }) {
-  const [selectedVariant, setSelectedVariant] = useState(0);
-  const variant = product.variants[selectedVariant];
+  const [selectedVariant, setSelectedVariant] = useState<number | null>(null);
+  const variant =
+    selectedVariant === null ? undefined : product.variants[selectedVariant];
   const variantLabel = variant?.size ?? variant?.color ?? "";
   const imageUrl = product.imagesCollection?.items[0]?.url ?? "";
+
+  const soldOut = !product.variants.some((v) => v.available);
+  const optionName = product.variants.some((v) => v.size) ? "size" : "color";
+  const disabledLabel = soldOut
+    ? "Out of stock"
+    : !variant
+      ? `Select a ${optionName}`
+      : !variant.available
+        ? "Out of stock"
+        : undefined;
 
   return (
     <div className="w-full">
@@ -35,8 +46,10 @@ export default function ItemSelector({
         {product.variants.map((variant, i) => (
           <button
             key={i}
+            type="button"
             onClick={() => setSelectedVariant(i)}
             disabled={!variant.available}
+            aria-pressed={i === selectedVariant}
             className={`border rounded-(--border-radius-md) px-3 py-1.5 text-xs cursor-pointer ${
               !variant.available
                 ? "text-(--color-text-tertiary) border-(--color-border-tertiary) line-through cursor-not-allowed"
@@ -57,7 +70,7 @@ export default function ItemSelector({
         variantLabel={variantLabel}
         price={product.price ?? 0}
         imageUrl={imageUrl}
-        available={variant?.available ?? false}
+        disabledLabel={disabledLabel}
       />
     </div>
   );

@@ -22,8 +22,14 @@ export default function SearchModal() {
 
   return (
     <>
-      <button className="btn" onClick={() => dialogRef.current?.showModal()}>
+      <button
+        type="button"
+        className="btn"
+        aria-label="Search products"
+        onClick={() => dialogRef.current?.showModal()}
+      >
         <svg
+          aria-hidden="true"
           width="17"
           height="17"
           viewBox="0 0 24 24"
@@ -34,13 +40,14 @@ export default function SearchModal() {
           strokeLinejoin="round"
         >
           <path d="M20 20L15.8033 15.8033M18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C14.6421 18 18 14.6421 18 10.5Z" />
-        </svg>{" "}
+        </svg>
       </button>
       <dialog ref={dialogRef} id="my_modal_2" className="modal">
-        <div className="modal-box bg-white h-fit w-lg max-w-none">
+        <div className="modal-box bg-white h-fit w-11/12 max-w-lg">
           <h3 className="text-lg">Search Our Products</h3>
           <label className="input w-full">
             <svg
+              aria-hidden="true"
               className="h-[1em] opacity-50"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -61,6 +68,7 @@ export default function SearchModal() {
                 type="search"
                 required
                 placeholder="Ex: 'shorts'"
+                aria-label="Search products"
                 value={userInput}
                 onChange={handleChange}
               />

@@ -8,7 +8,8 @@ interface Props {
   variantLabel: string;
   price: number;
   imageUrl: string;
-  available: boolean;
+  /** When set, the button is disabled and shows this text instead. */
+  disabledLabel?: string;
 }
 
 export function AddToCartButton({
@@ -18,7 +19,7 @@ export function AddToCartButton({
   variantLabel,
   price,
   imageUrl,
-  available,
+  disabledLabel,
 }: Props) {
   const addItem = useCartStore((state) => state.addItem);
 
@@ -37,10 +38,10 @@ export function AddToCartButton({
   return (
     <button
       onClick={handleClick}
-      disabled={!available}
-      className="w-full bg-(--color-text-primary) text-(--color-background-primary) border-0 py-3 rounded-(--border-radius-md) text-[13px] font-medium cursor-pointer"
+      disabled={!!disabledLabel}
+      className="w-full bg-(--color-text-primary) text-(--color-background-primary) border-0 py-3 rounded-(--border-radius-md) text-[13px] font-medium cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      {available ? "Add To Cart" : "Out of Stock"}
+      {disabledLabel ?? "Add To Cart"}
     </button>
   );
 }
