@@ -45,7 +45,7 @@ export default async function ProductPage({
   return (
     <div className="grid grid-cols-2">
       {/* Image column */}
-      <div className="relative bg-[#EDE9E3] flex items-center justify-center border-r border-(--color-border-tertiary) p-8 aspect-[1/1.05] overflow-hidden">
+      <div className="relative bg-(--color-background-secondary) flex items-center justify-center border-r border-(--color-border-secondary) p-8 aspect-[1/1.05] overflow-hidden">
         {images[0]?.url && (
           <Image
             src={images[0].url}
@@ -57,7 +57,7 @@ export default async function ProductPage({
 
         {/* Featured badge
         {product?.featured && (
-          <div className="absolute top-3 left-3 flex items-center gap-1 bg-(--color-background-primary) border border-(--color-border-tertiary) text-[10px] py-1 px-2 rounded-full text-(--color-text-secondary)">
+          <div className="absolute top-3 left-3 flex items-center gap-1 bg-(--color-background-primary) border border-(--color-border-secondary) text-[10px] py-1 px-2 rounded-full text-(--color-text-secondary)">
             ★ Featured
           </div>
         )} */}
@@ -70,8 +70,8 @@ export default async function ProductPage({
                 key={image?.url ?? i}
                 className={`w-9 h-11 rounded overflow-hidden flex items-center justify-center bg-(--color-background-secondary) cursor-pointer border ${
                   i === 0
-                    ? "border-(--color-border-primary) border-[1.5px]"
-                    : "border-(--color-border-tertiary)"
+                    ? "border-(--color-text-primary) border-[1.5px]"
+                    : "border-(--color-border-secondary)"
                 }`}
               >
                 {image?.url && (
@@ -96,7 +96,7 @@ export default async function ProductPage({
           <ol className="flex flex-wrap items-center gap-1 text-[11px] text-(--color-text-tertiary)">
             <li>
               <Link href="/" className="hover:underline">
-                All products
+                Shop all
               </Link>
             </li>
             {product.category && (
@@ -158,11 +158,11 @@ export default async function ProductPage({
 
         {/* Accordion rows */}
         <div>
-          <div className="flex justify-between items-center py-2.5 border-t border-(--color-border-tertiary) text-[13px] text-(--color-text-primary) cursor-pointer">
+          <div className="flex justify-between items-center py-2.5 border-t border-(--color-border-secondary) text-[13px] text-(--color-text-primary) cursor-pointer">
             <span>Materials &amp; care</span>
             <span className="text-(--color-text-tertiary) text-sm">›</span>
           </div>
-          <div className="flex justify-between items-center py-2.5 border-t border-(--color-border-tertiary) text-[13px] text-(--color-text-primary) cursor-pointer">
+          <div className="flex justify-between items-center py-2.5 border-t border-(--color-border-secondary) text-[13px] text-(--color-text-primary) cursor-pointer">
             <span>Shipping &amp; returns</span>
             <span className="text-(--color-text-tertiary) text-sm">›</span>
           </div>

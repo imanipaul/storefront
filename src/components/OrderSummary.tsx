@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { formatPrice } from "@/app/lib/format";
+import { FREE_SHIPPING_THRESHOLD, formatPrice } from "@/app/lib/format";
 import type { ReactNode } from "react";
-
-const FREE_SHIPPING_THRESHOLD = 200;
 
 function Icon({ size, children }: { size: number; children: ReactNode }) {
   return (
@@ -33,13 +31,13 @@ export default function OrderSummary({ totalPrice }: { totalPrice: number }) {
       <div className="flex gap-3 mb-6">
         <input
           placeholder="Promo code"
-          className="flex-1 min-w-0 border border-(--color-border-secondary) rounded-(--border-radius-md) px-4 py-2 text-sm bg-(--color-background-primary)"
+          className="flex-1 min-w-0 border border-(--color-border-primary) rounded-(--border-radius-md) px-4 py-2 text-sm bg-(--color-background-primary)"
           name="promo"
           id="promo"
         />
         <button
           type="button"
-          className="button button-secondary button-sm bg-(--color-background-primary)"
+          className="button button-secondary button-sm"
         >
           Apply
         </button>
@@ -64,7 +62,7 @@ export default function OrderSummary({ totalPrice }: { totalPrice: number }) {
         </div>
       </div>
 
-      <div className="border-t border-(--color-border-tertiary) pt-4 mb-6">
+      <div className="border-t border-(--color-border-secondary) pt-4 mb-6">
         <div className="flex justify-between font-bold text-base">
           <span>Total</span>
           <span>{formatPrice(totalPrice)}</span>

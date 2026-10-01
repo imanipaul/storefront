@@ -13,7 +13,7 @@ export default function CartItem({
   return (
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Your cart ({totalItems})</h1>
-      <div className="divide-y divide-(--color-border-tertiary)">
+      <div className="divide-y divide-(--color-border-secondary)">
         {items.map((item) => (
           <div className="flex gap-5 py-6" key={item.variantId}>
             <div className="w-24 h-24 flex-shrink-0 bg-(--color-background-secondary) rounded-(--border-radius-md) overflow-hidden">

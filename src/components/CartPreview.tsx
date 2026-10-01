@@ -19,13 +19,19 @@ export default function CartPreview() {
   const [hovered, setHovered] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
 
-  // Close after navigating
+  // Close after navigating. This updates a shared store, so it has to
+  // happen in an effect rather than during render.
   const pathname = usePathname();
-  const [lastPathname, setLastPathname] = useState(pathname);
-  if (pathname !== lastPathname) {
-    setLastPathname(pathname);
+  useEffect(() => {
     hide();
-  }
+  }, [pathname, hide]);
+
+  // Buttons inside the panel close it while the pointer is still over it,
+  // so clear the hover flag too or the next preview would never auto-hide
+  const close = () => {
+    setHovered(false);
+    hide();
+  };
 
   // Auto-hide, paused while the pointer or focus is inside the panel
   useEffect(() => {
@@ -65,7 +71,7 @@ export default function CartPreview() {
           onPointerLeave={() => setHovered(false)}
           onFocus={() => setHovered(true)}
           onBlur={() => setHovered(false)}
-          className="absolute right-0 top-full mt-2 z-50 w-[min(20rem,calc(100vw-2.5rem))] rounded-(--border-radius-lg) border border-(--color-border-tertiary) bg-(--color-background-primary) p-4 shadow-lg"
+          className="absolute right-0 top-full mt-2 z-50 w-[min(20rem,calc(100vw-2.5rem))] rounded-(--border-radius-lg) border border-(--color-border-secondary) bg-(--color-background-primary) p-4 shadow-lg"
         >
           <div className="flex items-center justify-between mb-3">
             <p className="text-xs font-medium text-(--color-text-primary)">
@@ -74,7 +80,7 @@ export default function CartPreview() {
             <button
               type="button"
               aria-label="Close"
-              onClick={hide}
+              onClick={close}
               className="button button-tertiary button-icon size-7"
             >
               <svg
@@ -125,7 +131,7 @@ export default function CartPreview() {
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={hide}
+              onClick={close}
               className="button button-secondary button-sm"
             >
               Keep shopping

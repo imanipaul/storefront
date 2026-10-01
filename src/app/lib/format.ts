@@ -8,3 +8,5 @@ const priceFormatter = new Intl.NumberFormat("en-US", {
 export function formatPrice(amount: number | null | undefined) {
   return priceFormatter.format(amount ?? 0);
 }
+
+export const FREE_SHIPPING_THRESHOLD = 200;

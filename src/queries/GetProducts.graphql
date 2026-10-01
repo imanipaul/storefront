@@ -1,5 +1,9 @@
-query GetProducts($limit: Int!, $where: ProductFilter) {
-  productCollection(limit: $limit, where: $where) {
+query GetProducts(
+  $limit: Int!
+  $where: ProductFilter
+  $order: [ProductOrder]
+) {
+  productCollection(limit: $limit, where: $where, order: $order) {
     total
     items {
       sys {

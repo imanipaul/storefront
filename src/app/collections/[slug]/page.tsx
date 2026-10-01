@@ -40,9 +40,9 @@ export default async function CollectionPage({
   return (
     <div>
       {/* Collection hero */}
-      <div className="grid grid-cols-2 border-b border-[var(--color-border-tertiary)]">
+      <div className="grid grid-cols-2 border-b border-(--color-border-secondary)">
         {/* Left: hero image */}
-        <div className="aspect-[16/9] bg-[#EDE9E3] flex items-center justify-center border-r border-[var(--color-border-tertiary)] overflow-hidden">
+        <div className="aspect-[16/9] bg-(--color-background-secondary) flex items-center justify-center border-r border-(--color-border-secondary) overflow-hidden">
           {collection.heroImage?.url && (
             <Image
               src={collection.heroImage.url}
@@ -74,11 +74,12 @@ export default async function CollectionPage({
       </div>
 
       {/* Product grid */}
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <ProductGrid products={products as any} />
+      <div className="px-5 md:px-10 py-8">
+        <ProductGrid products={products} />
+      </div>
 
       {/* Grid footer */}
-      <div className="px-5 py-3 border-t border-[var(--color-border-tertiary)] flex items-center">
+      <div className="px-5 py-3 border-t border-(--color-border-secondary) flex items-center">
         <span className="text-xs text-[var(--color-text-tertiary)]">
           {products.length} {products.length === 1 ? "product" : "products"}
         </span>

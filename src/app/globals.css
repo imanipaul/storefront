@@ -11,13 +11,13 @@
   color-scheme: light;
   --color-base-100: var(--color-background-primary);
   --color-base-200: var(--color-background-secondary);
-  --color-base-300: var(--color-border-tertiary);
+  --color-base-300: var(--color-border-secondary);
   --color-base-content: var(--color-text-primary);
-  --color-primary: var(--color-text-primary);
+  --color-primary: var(--color-brand);
   --color-primary-content: var(--color-background-primary);
   --color-secondary: var(--color-text-primary);
   --color-secondary-content: var(--color-background-primary);
-  --color-accent: var(--color-text-primary);
+  /* --color-accent is shared with our own token of the same name */
   --color-accent-content: var(--color-background-primary);
   --color-neutral: var(--color-text-primary);
   --color-neutral-content: var(--color-background-primary);
@@ -40,21 +40,23 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-background-primary);
+  --foreground: var(--color-text-primary);
 
-  --color-text-primary: #171717;
-  --color-text-secondary: #737373;
-  --color-text-tertiary: #a3a3a3;
+  --color-text-primary: #1A1716;
+  --color-text-secondary: #6B6460;
+  --color-text-tertiary: #6B6460;
   --color-text-danger: #dc2626;
   --color-text-success: #16a34a;
   --color-text-warning: #d97706;
   --color-text-info: #2563eb;
-  --color-background-primary: #ffffff;
-  --color-background-secondary: #f5f5f5;
-  --color-border-primary: #171717;
-  --color-border-secondary: #d4d4d4;
-  --color-border-tertiary: #e5e5e5;
+  --color-background-primary: #FBFAF8;
+  --color-background-secondary: #EDE6DC;
+  --color-border-primary: #958C86;
+  --color-border-secondary: #E4E0DB;
+  --color-brand: #5C1F22;
+  --color-brand-hover: #471719;
+  --color-accent: #B4532A;
   --border-radius-md: 6px;
   --border-radius-lg: 12px;
 }
@@ -63,13 +65,29 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-archivo);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Rust focus ring for every keyboard-focusable element */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 body {
   color: var(--color-text-primary);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   font-size: 13px;
+}
+
+/* Condensed display type for the wordmark and page/campaign headlines */
+@utility type-display {
+  font-family: var(--font-archivo), var(--font-geist-sans), sans-serif;
+  font-weight: 800;
+  font-stretch: 62.5%;
+  line-height: 0.9;
+  letter-spacing: -0.01em;
 }
 
 /* Button levels
@@ -97,31 +115,26 @@ body {
       opacity 150ms;
   }
 
-  .button:focus-visible {
-    outline: 2px solid var(--color-border-primary);
-    outline-offset: 2px;
-  }
-
   .button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
   .button-primary {
-    background-color: var(--color-text-primary);
+    background-color: var(--color-brand);
     color: var(--color-background-primary);
   }
   .button-primary:not(:disabled):hover {
-    opacity: 0.85;
+    background-color: var(--color-brand-hover);
   }
 
   .button-secondary {
-    background-color: transparent;
+    background-color: var(--color-background-primary);
     border-color: var(--color-border-secondary);
     color: var(--color-text-primary);
   }
   .button-secondary:not(:disabled):hover {
-    border-color: var(--color-border-primary);
+    border-color: var(--color-text-primary);
   }
 
   .button-tertiary {

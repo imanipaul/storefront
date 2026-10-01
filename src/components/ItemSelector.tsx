@@ -52,7 +52,7 @@ export default function ItemSelector({
             aria-pressed={i === selectedVariant}
             className={`border rounded-(--border-radius-md) px-3 py-1.5 text-xs cursor-pointer ${
               !variant.available
-                ? "text-(--color-text-tertiary) border-(--color-border-tertiary) line-through cursor-not-allowed"
+                ? "text-(--color-text-tertiary) border-(--color-border-secondary) line-through cursor-not-allowed"
                 : i == selectedVariant
                   ? "bg-(--color-text-primary) text-(--color-background-primary) border-(--color-text-primary)"
                   : "border-(--color-border-secondary) text-(--color-text-primary)"

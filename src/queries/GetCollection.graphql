@@ -17,6 +17,8 @@ query GetCollection($slug: String!) {
             name
             slug
             price
+            category
+            featured
             imagesCollection(limit: 1) {
               items {
                 url

@@ -18,7 +18,7 @@ export default function CartView({ suggestedProducts }: { suggestedProducts: Pro
     return (
       <>
         <div className="flex flex-col items-center justify-center py-24 px-4">
-          <div className="w-16 h-16 rounded-full border border-(--color-border-tertiary) flex items-center justify-center mb-6">
+          <div className="w-16 h-16 rounded-full border border-(--color-border-secondary) flex items-center justify-center mb-6">
             <svg
               width="24"
               height="24"
@@ -48,7 +48,7 @@ export default function CartView({ suggestedProducts }: { suggestedProducts: Pro
         </div>
 
         {suggestedProducts.length > 0 && (
-          <div className="border-t border-(--color-border-tertiary) px-6 py-8">
+          <div className="border-t border-(--color-border-secondary) px-6 py-8">
             <h3 className="text-base font-semibold mb-6">You might like</h3>
             <div className="grid grid-cols-3 gap-4">
               {suggestedProducts.slice(0, 3).map((product) => {

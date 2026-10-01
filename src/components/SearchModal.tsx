@@ -24,14 +24,14 @@ export default function SearchModal() {
     <>
       <button
         type="button"
-        className="button button-tertiary button-icon text-(--color-text-primary)"
+        className="button button-tertiary button-sm px-2.5 gap-1.5 text-(--color-text-primary)"
         aria-label="Search products"
         onClick={() => dialogRef.current?.showModal()}
       >
         <svg
           aria-hidden="true"
-          width="17"
-          height="17"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -41,11 +41,14 @@ export default function SearchModal() {
         >
           <path d="M20 20L15.8033 15.8033M18 10.5C18 6.35786 14.6421 3 10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C14.6421 18 18 14.6421 18 10.5Z" />
         </svg>
+        <span className="hidden sm:inline" aria-hidden="true">
+          Search
+        </span>
       </button>
       <dialog ref={dialogRef} id="my_modal_2" className="modal">
         <div className="modal-box h-fit w-11/12 max-w-lg">
           <h3 className="text-lg">Search Our Products</h3>
-          <label className="input w-full">
+          <label className="input w-full border-(--color-border-primary)">
             <svg
               aria-hidden="true"
               className="h-[1em] opacity-50"

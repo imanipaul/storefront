@@ -1,0 +1,14 @@
+query GetCampaignCollection {
+  collectionCollection(limit: 1) {
+    items {
+      slug
+      title
+      description {
+        json
+      }
+      productsCollection {
+        total
+      }
+    }
+  }
+}

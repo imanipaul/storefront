@@ -2,54 +2,42 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-const filters = [
-  "All",
-  "Tops",
-  "Bottoms",
-  "Outerwear",
-  "Accessories",
-  "Featured",
-];
+const filters = ["All", "Tops", "Bottoms", "Outerwear", "Accessories"];
 
 export default function FilterPills() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const activeCategory = searchParams.get("category") ?? "All";
 
   function handleFilter(filter: string) {
     const params = new URLSearchParams(searchParams.toString());
-    console.log("params", params);
-    console.log("!!params.get(featured)", !!params.get("featured"));
-    if (filter === "All") {
+    if (filter === "All" || filter === activeCategory) {
       params.delete("category");
-      params.delete("featured");
-    } else if (filter === "Featured") {
-      !!params.get("featured")
-        ? params.delete("featured")
-        : params.set("featured", "true");
     } else {
-      params.get("category") === filter
-        ? params.delete("category")
-        : params.set("category", filter);
+      params.set("category", filter);
     }
     params.delete("skip");
     router.push(`/?${params.toString()}`, { scroll: false });
   }
 
   return (
-    <div className="flex items-center gap-1.5 px-5 py-3 overflow-x-auto border-b border-(--color-border-tertiary)">
+    <div
+      role="group"
+      aria-label="Filter by category"
+      className="flex items-center gap-2 overflow-x-auto min-w-0 max-w-full [scrollbar-width:none]"
+    >
       {filters.map((filter) => {
-        const isActive =
-          filter === "Featured"
-            ? searchParams.has("featured")
-            : (searchParams.get("category") ?? "All") === filter;
+        const isActive = activeCategory === filter;
         return (
           <button
             key={filter}
+            type="button"
+            aria-pressed={isActive}
             onClick={() => handleFilter(filter)}
-            className={`px-3 py-1 rounded-full text-xs cursor-pointer whitespace-nowrap border transition-colors ${
+            className={`px-4 py-1.5 rounded-full text-[13px] cursor-pointer whitespace-nowrap border transition-colors ${
               isActive
                 ? "bg-(--color-text-primary) text-(--color-background-primary) border-(--color-text-primary)"
-                : "bg-transparent border-(--color-border-secondary) text-(--color-text-secondary)"
+                : "bg-(--color-background-primary) border-(--color-border-secondary) text-(--color-text-primary) hover:border-(--color-text-primary)"
             }`}
           >
             {filter}

@@ -49,7 +49,7 @@ export default function MobileNav({ links }: { links: NavLink[] }) {
         <nav
           id="mobile-nav"
           aria-label="Main"
-          className="absolute left-0 right-0 top-full z-50 flex flex-col border-b border-(--color-border-tertiary) bg-(--color-background-primary) px-3 py-2 shadow-sm"
+          className="absolute left-0 right-0 top-full z-50 flex flex-col border-b border-(--color-border-secondary) bg-(--color-background-primary) px-3 py-2 shadow-sm"
         >
           {links.map((link) => (
             <Link
