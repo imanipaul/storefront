@@ -17,6 +17,9 @@ type Product = {
 
 // The feature tile sits at the start of the second row on desktop
 const FEATURE_POSITION = 4;
+// Cards in the first desktop row are usually on screen at load (and one is often
+// the Largest Contentful Paint), so they shouldn't be lazy-loaded
+const EAGER_COUNT = 4;
 
 export default function ProductGrid({
   products,
@@ -41,8 +44,9 @@ export default function ProductGrid({
                 {image?.url && (
                   <Image
                     src={image.url}
-                    alt={image.title ?? product?.name ?? ""}
+                    alt={product?.name ?? ""}
                     fill
+                    loading={i < EAGER_COUNT ? "eager" : "lazy"}
                     sizes="(min-width: 1024px) 25vw, 50vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                   />

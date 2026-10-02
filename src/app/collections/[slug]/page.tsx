@@ -73,10 +73,11 @@ export default async function CollectionPage({
           <div className="relative aspect-video rounded-xs overflow-hidden bg-(--color-background-secondary)">
             <Image
               src={collection.heroImage.url}
-              alt={collection.heroImage.title ?? collection.title ?? ""}
+              alt=""
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
-              priority
+              loading="eager"
+              fetchPriority="high"
               className="object-cover"
             />
           </div>

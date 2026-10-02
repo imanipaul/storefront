@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Geist, Archivo } from "next/font/google";
 import "./globals.css";
 import { apolloClient } from "./lib/apollo-client";
-import { GetCollectionSlugsDocument } from "@/gql/graphql";
+import { GetCollectionSlugsDocument, GetProductsDocument } from "@/gql/graphql";
 import CartBadge from "@/components/CartBadge";
-import SearchModal from "@/components/SearchModal";
+import SearchModal, { type FeaturedProduct } from "@/components/SearchModal";
 import MobileNav, { type NavLink } from "@/components/MobileNav";
 import HeaderNav from "@/components/HeaderNav";
 import { FREE_SHIPPING_THRESHOLD, formatPrice } from "./lib/format";
@@ -33,9 +33,28 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { data } = await apolloClient.query({
-    query: GetCollectionSlugsDocument,
-  });
+  const [{ data }, { data: featuredData }] = await Promise.all([
+    apolloClient.query({ query: GetCollectionSlugsDocument }),
+    apolloClient.query({
+      query: GetProductsDocument,
+      variables: { limit: 4, where: { featured: true } },
+    }),
+  ]);
+
+  // Shown in the search dialog before the shopper types
+  const featuredProducts: FeaturedProduct[] =
+    featuredData?.productCollection?.items.flatMap((p) =>
+      p?.slug
+        ? [
+            {
+              slug: p.slug,
+              name: p.name ?? "",
+              price: p.price ?? 0,
+              imageUrl: p.imagesCollection?.items[0]?.url ?? undefined,
+            },
+          ]
+        : [],
+    ) ?? [];
 
   const collectionLinks: NavLink[] =
     data?.collectionCollection?.items.flatMap((item) =>
@@ -72,7 +91,7 @@ export default async function RootLayout({
 
           {/* Actions */}
           <div className="flex items-center gap-1 shrink-0">
-            <SearchModal />
+            <SearchModal featured={featuredProducts} />
             <CartBadge />
           </div>
         </header>

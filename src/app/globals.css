@@ -69,10 +69,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Rust focus ring for every keyboard-focusable element */
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+/* Rust focus ring for every keyboard-focusable element. In the base layer so
+   utilities like outline-none can turn it off where a wrapper draws the ring. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
 }
 
 body {

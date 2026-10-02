@@ -59,8 +59,9 @@ export default function CartView({ suggestedProducts }: { suggestedProducts: Pro
                       {image?.url && (
                         <Image
                           src={image.url}
-                          alt={image.title ?? product?.name ?? ""}
+                          alt={product?.name ?? ""}
                           fill
+                          sizes="33vw"
                           className="object-cover"
                         />
                       )}

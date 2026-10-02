@@ -1,0 +1,35 @@
+# Matches the term against name, category, description and tags.
+# Contentful can't rank by relevance, so results are ranked in code (see app/lib/search.ts).
+query SearchProducts($term: String!, $limit: Int!, $order: [ProductOrder]) {
+  productCollection(
+    limit: $limit
+    order: $order
+    where: {
+      OR: [
+        { name_contains: $term }
+        { category_contains: $term }
+        { description_contains: $term }
+        { tags_contains_some: [$term] }
+      ]
+    }
+  ) {
+    total
+    items {
+      name
+      slug
+      price
+      category
+      tags
+      featured
+      description {
+        json
+      }
+      imagesCollection(limit: 1) {
+        items {
+          url
+          title
+        }
+      }
+    }
+  }
+}

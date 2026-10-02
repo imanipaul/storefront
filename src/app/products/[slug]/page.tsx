@@ -49,8 +49,11 @@ export default async function ProductPage({
         {images[0]?.url && (
           <Image
             src={images[0].url}
-            alt={images[0].title ?? product.name ?? ""}
+            alt={product.name ?? ""}
+            loading="eager"
+            fetchPriority="high"
             fill
+            sizes="50vw"
             className="object-contain p-8"
           />
         )}
@@ -77,7 +80,7 @@ export default async function ProductPage({
                 {image?.url && (
                   <Image
                     src={image.url}
-                    alt={image.title ?? ""}
+                    alt=""
                     width={36}
                     height={44}
                     className="h-full w-full object-cover"

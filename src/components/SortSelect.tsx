@@ -1,21 +1,30 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { DEFAULT_SORT, SORT_OPTIONS } from "@/app/lib/sort";
 
-export default function SortSelect() {
+type Option = { value: string; label: string };
+
+export default function SortSelect({
+  options = SORT_OPTIONS,
+  defaultValue = DEFAULT_SORT,
+}: {
+  options?: Option[];
+  defaultValue?: string;
+}) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const current = searchParams.get("sort") ?? DEFAULT_SORT;
+  const current = searchParams.get("sort") ?? defaultValue;
 
   function handleChange(value: string) {
     const params = new URLSearchParams(searchParams.toString());
-    if (value === DEFAULT_SORT) {
+    if (value === defaultValue) {
       params.delete("sort");
     } else {
       params.set("sort", value);
     }
-    router.push(`/?${params.toString()}`, { scroll: false });
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   return (
@@ -27,7 +36,7 @@ export default function SortSelect() {
           onChange={(e) => handleChange(e.target.value)}
           className="appearance-none cursor-pointer min-w-36 rounded-(--border-radius-md) border border-(--color-border-primary) bg-(--color-background-primary) py-2 pl-3 pr-8 text-[13px] text-(--color-text-primary)"
         >
-          {SORT_OPTIONS.map((option) => (
+          {options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
