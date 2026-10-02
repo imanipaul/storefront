@@ -7,6 +7,7 @@ import {
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Document } from "@contentful/rich-text-types";
 import Image from "next/image";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export async function generateStaticParams() {
   const { data } = await apolloClient.query({
@@ -33,57 +34,56 @@ export default async function CollectionPage({
   const collection = data?.collectionCollection?.items[0];
   const descriptionJson = collection?.description?.json as Document | undefined;
 
-  if (!collection) return <p className="p-5 text-[var(--color-text-secondary)]">Collection not found</p>;
+  if (!collection)
+    return (
+      <p className="px-5 md:px-10 py-8 text-(--color-text-secondary)">
+        Collection not found
+      </p>
+    );
 
   const products = collection?.productsCollection?.items ?? [];
 
   return (
-    <div>
-      {/* Collection hero */}
-      <div className="grid grid-cols-2 border-b border-(--color-border-secondary)">
-        {/* Left: hero image */}
-        <div className="aspect-[16/9] bg-(--color-background-secondary) flex items-center justify-center border-r border-(--color-border-secondary) overflow-hidden">
-          {collection.heroImage?.url && (
-            <Image
-              src={collection.heroImage.url}
-              alt={collection.heroImage.title ?? collection.title ?? ""}
-              width={collection.heroImage.width ?? 800}
-              height={collection.heroImage.height ?? 450}
-              className="h-full w-full object-cover"
-            />
-          )}
-        </div>
+    <div className="px-5 md:px-10 pt-6 md:pt-8 pb-14">
+      <Breadcrumb
+        items={[{ label: "Home", href: "/" }, { label: collection.title ?? "" }]}
+      />
 
-        {/* Right: collection info */}
-        <div className="px-5 py-6 flex flex-col justify-center gap-2.5">
-          <p className="text-[10px] tracking-[0.08em] uppercase text-[var(--color-text-tertiary)]">
-            Collection
-          </p>
-          <h1 className="text-[20px] font-medium tracking-tight text-[var(--color-text-primary)]">
-            {collection.title}
-          </h1>
+      {/* Collection hero */}
+      <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-end pt-3 pb-6 mb-6 border-b border-(--color-border-secondary)">
+        {/* Title, count and description */}
+        <div className="flex flex-col gap-4 md:pb-1">
+          <div className="flex flex-wrap items-end gap-x-4 gap-y-1">
+            <h1 className="type-display text-[56px] md:text-[64px]">
+              {collection.title}
+            </h1>
+            <p className="text-[13px] text-(--color-text-secondary) pb-1">
+              {products.length} {products.length === 1 ? "piece" : "pieces"}
+            </p>
+          </div>
           {descriptionJson && (
-            <div className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
+            <div className="text-sm leading-relaxed text-(--color-text-secondary) max-w-md [&_p]:m-0">
               {documentToReactComponents(descriptionJson)}
             </div>
           )}
-          <div className="text-[11px] text-[var(--color-text-tertiary)] flex items-center gap-3">
-            <span>{products.length} products</span>
-          </div>
         </div>
+
+        {/* Hero image */}
+        {collection.heroImage?.url && (
+          <div className="relative aspect-video rounded-xs overflow-hidden bg-(--color-background-secondary)">
+            <Image
+              src={collection.heroImage.url}
+              alt={collection.heroImage.title ?? collection.title ?? ""}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              priority
+              className="object-cover"
+            />
+          </div>
+        )}
       </div>
 
-      {/* Product grid */}
-      <div className="px-5 md:px-10 py-8">
-        <ProductGrid products={products} />
-      </div>
-
-      {/* Grid footer */}
-      <div className="px-5 py-3 border-t border-(--color-border-secondary) flex items-center">
-        <span className="text-xs text-[var(--color-text-tertiary)]">
-          {products.length} {products.length === 1 ? "product" : "products"}
-        </span>
-      </div>
+      <ProductGrid products={products} />
     </div>
   );
 }

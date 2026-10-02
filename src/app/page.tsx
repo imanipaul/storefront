@@ -9,7 +9,7 @@ import SortSelect from "@/components/SortSelect";
 import CampaignTile from "@/components/CampaignTile";
 import { getSortOrder } from "./lib/sort";
 import type { Document } from "@contentful/rich-text-types";
-import Link from "next/link";
+import Breadcrumb from "@/components/Breadcrumb";
 import { Suspense } from "react";
 
 export default async function ShopAllPage({
@@ -65,17 +65,7 @@ export default async function ShopAllPage({
 
   return (
     <div className="px-5 md:px-10 pt-6 md:pt-8 pb-14">
-      <nav aria-label="Breadcrumb">
-        <ol className="flex items-center gap-1 text-xs text-(--color-text-secondary)">
-          <li>
-            <Link href="/" className="hover:text-(--color-text-primary)">
-              Home
-            </Link>
-          </li>
-          <li aria-hidden="true">/</li>
-          <li aria-current="page">Shop all</li>
-        </ol>
-      </nav>
+      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Shop all" }]} />
 
       <div className="flex items-end gap-4 pt-3 pb-4 border-b border-(--color-border-secondary)">
         <h1 className="type-display text-[56px] md:text-[64px]">Shop all</h1>
